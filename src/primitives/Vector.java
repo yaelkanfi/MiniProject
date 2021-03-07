@@ -126,8 +126,8 @@ public class Vector {
     	return this;
     }
     /**
-     * 
-     * @return
+     * The function normalizes the vector and returns it after normalization with the same direction
+     * @return  new Normalized  Vector
      */
     public Vector normalized()
     {

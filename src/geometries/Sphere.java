@@ -18,7 +18,7 @@ public class Sphere implements Geometry
 	public Vector get_Normal(Point3D p) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return p.subtract(this.center).normalize();
 	}	
 	/**
 	 * constructor that get a point and radius and return a sphere

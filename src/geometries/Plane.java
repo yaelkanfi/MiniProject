@@ -23,7 +23,9 @@ public class Plane implements Geometry {
 	public Plane(Point3D q1, Point3D q2, Point3D q3)
 	{
 		super();
-		this.normal=null;
+		Vector v1 = q2.subtract(q1);
+		Vector v2 = q3.subtract(q1);
+		this.normal = (v1.crossProduct(v2)).normalize();
 		this.q0 = q1;
 	}
 	/**constructor that gets a vector and a point and returns a plane
@@ -38,7 +40,7 @@ public class Plane implements Geometry {
 	@Override
 	public Vector get_Normal(Point3D p) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.normal;
 	}
 	/**the function return point
 	 * @return the q0- point

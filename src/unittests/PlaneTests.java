@@ -30,11 +30,11 @@ public class PlaneTests {
 			Point3D p1 = new Point3D(1,2,0);
 			Point3D p2 = new Point3D(-4,7,0);
 			Point3D p3 = new Point3D(1,0,5);
-			Plane p = new Plane(p1,p2, p3);
+			Plane p = new Plane(p1,p2, p3); //plane from the points
 			Vector v1 = new Vector(p1.subtract(p2).getHead());
 			Vector v2 = new Vector(p2.subtract(p3).getHead());
 			Vector v3 = new Vector(p3.subtract(p1).getHead());
-			Vector n = p.get_Normal(p1);
+			Vector n = p.get_Normal(p1); //n is the normal of p in p0
 			assertTrue("ERROR: Bad normal to plane", isZero(v1.dotProduct(n)));
 			assertTrue("ERROR: Bad normal to plane", isZero(v2.dotProduct(n)));
 			assertTrue("ERROR: Bad normal to plane", isZero(v3.dotProduct(n)));

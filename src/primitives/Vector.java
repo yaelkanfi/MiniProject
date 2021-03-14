@@ -3,7 +3,7 @@
  */
 package primitives;
 
-import java.util.Objects;
+//import java.util.Objects;
 
 /**
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886
@@ -48,7 +48,8 @@ public class Vector {
 	 * @param head Point3D
 	 */
 	public Vector(Point3D head) {
-		super();
+		if(head.equals(Point3D.ZERO))
+			throw new IllegalArgumentException("Error, cannot create vector zero");
 		this.head = head;
 	}
 	
@@ -141,10 +142,10 @@ public class Vector {
 
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(head);
-	}
+	//@Override
+	//public int hashCode() {
+	//	return Objects.hash(head);
+	//}
 
 	@Override
 	public boolean equals(Object obj) {

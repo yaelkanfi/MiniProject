@@ -2,11 +2,10 @@
  * 
  */
 package geometries;
-
 import primitives.Point3D;
+import static primitives.Util.*;
 import primitives.Ray;
-import primitives.Vector;
-
+import primitives.Vector; 
 /**
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886 //
  *
@@ -28,12 +27,20 @@ public class Tube implements Geometry
 	}
 
 	@Override
-	public Vector get_Normal(Point3D p) {
-		// TODO Auto-generated method stub
-		double t = (p.subtract(this.axisRay.getP0())).dotProduct(this.axisRay.getDir());
-		Point3D o = this.axisRay.getP0().add(axisRay.getDir().scale(t));
-		return p.subtract(o).normalize();
+	public Vector get_Normal(Point3D point) {
+		Point3D o =axisRay.getP0();
+	    Vector v=axisRay.getDir();
+	    double t=point.subtract(o).dotProduct(v);
+	    if(!isZero(t))
+	    {
+	       o=o.add(v.scale(t));
+	       return point.subtract(o).normalize();
+	    }
+	  //if the point is on the same level, return normal
+        return point.subtract(axisRay.getP0()).normalized();
 	}
+		
+	  ;
 
 	/**
 	 * the function return ray

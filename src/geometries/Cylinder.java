@@ -28,7 +28,14 @@ public Cylinder(Ray axisRay, double radius, double height) {
 @Override
 public Vector get_Normal(Point3D p) {
 	// TODO Auto-generated method stub
-	return super.get_Normal(p);
+	if(p.subtract(axisRay.getP0().add(axisRay.getDir().scale(height))).length()<radius)
+        return axisRay.getDir().normalize();
+	if(p.subtract(axisRay.getP0()).length()<radius)
+		return axisRay.getDir().scale(-1).normalize();
+	if(p.subtract(axisRay.getP0()).length()==radius)
+		return p.subtract(axisRay.getP0()).normalize();
+	else
+	   return super.get_Normal(p);
 }
 
 @Override

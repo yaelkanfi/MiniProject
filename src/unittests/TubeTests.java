@@ -2,12 +2,12 @@
  * 
  */
 package unittests;
-
 import static org.junit.Assert.*;
+
+import static primitives.Util.*;
 
 import org.junit.Test;
 
-import static primitives.Util.*;
 import geometries.Tube;
 import primitives.Point3D;
 import primitives.Ray;
@@ -25,16 +25,11 @@ public class TubeTests {
 	 */
 	@Test
 	public void testGet_Normal() {
-		Ray r = new Ray( new Point3D(0,0,0), new Vector(0,1,0));
-		Tube t = new Tube(r, 1);
+		Ray r = new Ray( new Point3D(0,0,0),new Vector(0,1,0));
+		Tube t= new Tube(r,1);
 		Point3D p = new Point3D(1,0,1);
-		Vector n = t.get_Normal(p);
-		assertTrue("bad normal to tube", isZero(r.getDir().dotProduct(n)));
-		// =============== Boundary Values Tests ==================
-        try {
-        	new Tube(r,0).get_Normal(p);
-            fail("GetNormal() should throw an exception, but it failed");
-        } catch (Exception e) {}
-	}
-
+		Vector n= t.get_Normal(p);
+		assertTrue("bad normal to tube",isZero(r.getDir().dotProduct(n)));
+   }
 }
+	

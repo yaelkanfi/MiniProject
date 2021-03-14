@@ -60,7 +60,7 @@ public class VectorTests {
 			     Vector v3=new Vector(-1,-1,-1); //new vector
 			     Vector v4=new Vector(1,1,1); //other new vector
 		try {
-			     v3.add(v4); //add v4 to v3 v3=(0, 0, 0)
+			     v3.add(v4); // add v4 to v3 v3=(0, 0, 0)
 			     fail("Vector (0,0,0) shouldnt be valid");
 			  }
 		catch(IllegalArgumentException e)

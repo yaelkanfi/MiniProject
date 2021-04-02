@@ -15,7 +15,7 @@ public interface Geometry extends Intersectable
 {
 	/**
 	 *
-	 * @param p point3D (point) 
+	 * @param p point3D 
 	 * @return  the normal of point
 	 */
 	public Vector get_Normal(Point3D p);

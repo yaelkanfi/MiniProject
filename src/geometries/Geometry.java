@@ -11,7 +11,7 @@ import primitives.Point3D;
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886
  *
  */
-public interface Geometry
+public interface Geometry extends Intersectable
 {
 	/**
 	 * 

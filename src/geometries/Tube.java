@@ -2,6 +2,7 @@
  * 
  */
 package geometries;
+import static primitives.Util.*;
 import primitives.Point3D;
 import static primitives.Util.*;
 import primitives.Ray;

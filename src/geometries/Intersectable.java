@@ -4,7 +4,7 @@
 package geometries;
 
 /**
- * @author Yael and Chagit
+ * @author Yael and Chagit //
  *
  */
 public interface Intersectable {

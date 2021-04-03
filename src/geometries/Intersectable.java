@@ -10,7 +10,7 @@ import java.util.List;
 import primitives.Point3D;
 
 /**
- * @author Yael and Chagit ////
+ * @author Yael and Chagit //
  *
  */
 public interface Intersectable {

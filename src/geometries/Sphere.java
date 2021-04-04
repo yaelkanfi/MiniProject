@@ -48,7 +48,7 @@ public class Sphere implements Geometry
 	}
 	
 	@Override
-	public List<Point3D> findIntsersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
 		//point and vector of ray
 		Point3D p0 = ray.getP0();//ray point
@@ -65,11 +65,11 @@ public class Sphere implements Geometry
 		double th=Math.sqrt(radius*radius-d*d);//according pitagoras
 		double t1=tm+th;
 		double t2=tm-th;
-		if(t1>0&&t2>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v))&&!isZero(ray.getPoint(t2).subtract(center).dotProduct(v)))
+		if(t1>0&&t2>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v))&&!isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if orthogonal -> no intersection 
 			return List.of(ray.getPoint(t1),ray.getPoint(t2));
-		else if(t1>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v)))
+		else if(t1>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v))) //if only t1 is not orthogonal and positive
 			return List.of(ray.getPoint(t1));
-		else if(t2>0&&!isZero(ray.getPoint(t2).subtract(center).dotProduct(v)))
+		else if(t2>0&&!isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if only t2 is not orthogonal and positive
 			return List.of(ray.getPoint(t2));
 		else
 			return null;

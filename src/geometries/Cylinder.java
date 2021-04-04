@@ -8,7 +8,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 /**
- * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886 //
+ * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886 
  *
  */
 public class Cylinder extends Tube 

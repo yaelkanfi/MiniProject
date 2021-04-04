@@ -62,7 +62,7 @@ public class Plane implements Geometry {
 		return "point: "+q0.toString() +" normal vector: "+normal.toString();
 	}
 	@Override
-	public List<Point3D> findIntsersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
 		 //get ray point and vector
         Point3D rayPoint = ray.getP0();
@@ -88,7 +88,7 @@ public class Plane implements Geometry {
                 return null;
 
         } catch(Exception ex){
-            // _p.subtract(rayP) is vector zero, which means the ray point is equal to the plane point (ray start on plane)
+            // p.subtract(rayP) is vector zero, which means the ray point is equal to the plane point (ray start on plane)
         	return null;
         }
 	}

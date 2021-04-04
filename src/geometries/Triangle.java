@@ -38,9 +38,9 @@ public class Triangle extends Polygon
  * The function returns intersections between a ray and a triangle. If there are no intersection points the function returns null
  */
 	@Override
-	public List<Point3D> findIntsersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
-		 List<Point3D> intersections = plane.findIntsersections(ray);
+		 List<Point3D> intersections = plane.findIntersections(ray);
          if (intersections == null) return null;
 
          Point3D rayPoint = ray.getP0();

@@ -2,7 +2,6 @@
  * 
  */
 package geometries;
-import primitives.Vector;
 import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
@@ -90,7 +89,13 @@ public class Polygon implements Geometry {
 		return plane.getNormal();
 	}
 
-/** vector zero coordinate
- * 
- */
+	@Override
+	public List<Point3D> findIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+     return null;
+	}
+	
+	
+
+
 }

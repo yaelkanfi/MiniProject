@@ -30,7 +30,16 @@ public final class Coordinate {
         this.coord = alignZero(coord);
     }
 
-    /*************** Admin *****************/
+    /**
+	 * @return the coord
+	 */
+	public double getCoord() {
+		return coord;
+	}
+
+
+
+	/*************** Admin *****************/
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

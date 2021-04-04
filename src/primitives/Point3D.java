@@ -45,6 +45,29 @@ public class Point3D
 		this.z = new Coordinate(z);
 	}
 	
+	
+	
+	/**
+	 * @return the x
+	 */
+	public double getX() {
+		return x.getCoord();
+	}
+
+	/**
+	 * @return the y
+	 */
+	public double getY() {
+		return y.getCoord();
+	}
+
+	/**
+	 * @return the z
+	 */
+	public double getZ() {
+		return z.getCoord();
+	}
+
 	/**
 	 * subtract between headPoint to this Point and returns the vector
 	 * @param headPoint Point3D

@@ -36,16 +36,7 @@ public Point3D getP0() {
 public Vector getDir() {
 	return dir;
 }
-/**
- * 
- * @param t
- * @return If point is 0 the function returns p0 otherwise returns a new point which is P0 + vector direction * scalar 
- */
-public Point3D getPoint(double t)
-{
-	 Point3D p1=p0.add(dir.scale(t));
-	return isZero(t) ? p0 : new Point3D(p1.x, p1.y, p1.z);
-}
+
 @Override
 public int hashCode() {
 	return Objects.hash(dir, p0);
@@ -66,4 +57,14 @@ public String toString() {
 	return p0.toString() + " + t" + dir.toString();
 }
 
+/**
+ * 
+ * @param t
+ * @return If point is 0 the function returns p0 otherwise returns a new point which is P0 + vector direction * scalar 
+ */
+public Point3D getPoint(double t)
+{
+	 Point3D p1 = p0.add(dir.scale(t));
+	return isZero(t) ? p0 : new Point3D(p1.x, p1.y, p1.z);
+}
 }

@@ -24,7 +24,7 @@ public class TubeTests {
 	 * Test method for {@link geometries.Tube#get_Normal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGet_Normal() {
+	public void testNormal() {
 		Ray r = new Ray( new Point3D(0,0,0),new Vector(0,1,0));
 		Tube t= new Tube(r,1);
 		Point3D p = new Point3D(1,0,1);

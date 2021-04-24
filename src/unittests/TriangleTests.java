@@ -23,7 +23,7 @@ public class TriangleTests {
 	 * Test method for {@link geometries.Triangle#get_Normal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGet_Normal() {
+	public void testNormal() {
 		Triangle tri = new Triangle(new Point3D(2,0,0),new Point3D(0,2,0),new Point3D(0,0,0));
         assertEquals(new Vector(0,0,1),tri.get_Normal(null));
 	}
@@ -32,7 +32,7 @@ public class TriangleTests {
      * Check findIntersections
      */
     @Test
-    public void findIntersections() 
+    public void testFindIntersectionPoint() 
     {
         Triangle tri = new Triangle(new Point3D(0, 3, -3),new Point3D(3, 0, -3),new Point3D(-3, 0, -3));
         Ray ray;

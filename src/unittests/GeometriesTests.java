@@ -16,7 +16,7 @@ import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
 
-/**
+/** 
  * Unit tests for geometries.Geometries class
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886
  * -
@@ -28,7 +28,7 @@ public class GeometriesTests {
 	 * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}.
 	 */
 	@Test
-	public void testFindIntersections()
+	public void testFindIntersectionPoint()
 	{
 		Geometries empty = new Geometries(); //empty list
 		Geometries geometries = new Geometries();

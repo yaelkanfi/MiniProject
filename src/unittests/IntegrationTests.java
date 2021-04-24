@@ -26,8 +26,8 @@ public class IntegrationTests {
 
 	/**
 	 * the function calculates how many intersections view plan has with Intersectable
-	 * @param Nx
-	 * @param Ny
+	 * @param Nx 
+	 * @param Ny 
 	 * @param cam
 	 * @param geo
 	 * @return amount of intersections with geo
@@ -51,7 +51,7 @@ public class IntegrationTests {
 	
 	//Test cases for Sphere
 	@Test
-	public void constructRayThroughPixelWithSphere() {
+	public void cameraSphereIntersections() {
 
 		// ***** 2 intersection points*****
 		Sphere sph = new Sphere(new Point3D(0, 0, -3), 1);
@@ -83,7 +83,7 @@ public class IntegrationTests {
 	
 	//Test cases for Plane
 	@Test
-	public void constructRayThroughPixelWithPlane() {
+	public void cameraPlaneIntersections() {
 		
 		// ***** 9 intersection points***** 
 	    Plane pln = new Plane(new Point3D(0,0,-4),new Vector(0, 0, 1));
@@ -105,7 +105,7 @@ public class IntegrationTests {
 
 	//Test cases for Triangle
 	@Test
-	public void constructRayThroughPixelWithTriangle() {
+	public void cameraTriangleIntersections() {
 		
 		// ***** 1 intersection point*****
 		Triangle tri = new Triangle(new Point3D(1, -1, -2), new Point3D(-1, -1, -2), new Point3D(0, 1, -2));

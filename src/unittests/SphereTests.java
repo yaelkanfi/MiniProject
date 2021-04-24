@@ -24,7 +24,7 @@ public class SphereTests {
 	 * Test method for {@link geometries.Sphere#get_Normal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGet_Normal() {
+	public void testNormal() {
 		Point3D p= new Point3D(1, 1, 6);
 		Point3D o=new Point3D(1,1,1);
 		Sphere s=new Sphere(o,5);
@@ -43,7 +43,7 @@ public class SphereTests {
      * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
      */
     @Test
-    public void testFindIntersections() {
+    public void testFindIntersectionPoint() {
         Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
 
         // ============ Equivalence Partitions Tests ==============

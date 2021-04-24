@@ -23,7 +23,7 @@ public class CylinderTests {
 	 * Test method for {@link geometries.Cylinder#get_Normal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGet_Normal() {
+	public void testNormal() {
 		// ============ Equivalence Partitions Tests =================
 			 Cylinder c = new Cylinder(new Ray(new Point3D(0, 0, 0), new Vector(0, 0, 1)), 3, 10);
 			 Vector v = new Vector(0, 0, -1);

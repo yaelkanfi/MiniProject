@@ -26,7 +26,7 @@ public class PlaneTests {
 	 * Test method for {@link geometries.Plane#get_Normal(primitives.Point3D)}.
 	 */
 	@Test
-	public void testGet_Normal() {
+	public void testNormal() {
 		
 	        // ============ Equivalence Partitions Tests ==============
 			Point3D p1 = new Point3D(1,2,0);
@@ -50,7 +50,7 @@ public class PlaneTests {
      * Check findIntersections
      */
     @Test
-    public void findIntersections() {
+    public void testFindIntersectionPoint() {
         Plane p = new Plane(new Point3D(0, 0, -3), new Vector(0, 0, -1));
         Ray ray;
 

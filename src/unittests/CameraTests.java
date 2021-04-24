@@ -20,7 +20,7 @@ public class CameraTests {
 	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
 	 */
 	@Test
-	public void testConstructRayThroughPixel() {
+	public void testRaysConstruction() {
 		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)).setDistance(10);
 
 		// ============ Equivalence Partitions Tests ==============

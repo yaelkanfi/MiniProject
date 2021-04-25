@@ -26,14 +26,14 @@ public class RayTracerBasic extends RayTracerBase
 	  return scene.ambientLight.getIntensity();		
 	}
 	
-	/**
-	 * this function return the color of the closest point to the ray.
-	 * @param ray
-	 * @return the color
+	/** an inheritance function from base
+	 * this function returns the color of the closest point to the ray.
+	 * @param ray -the ray between camera and view plane
+	 * @return the color -color of closest point
 	 */
 	public Color traceRay(Ray ray)
 	{
-		List<Point3D> intersections = scene.geometries.findIntersections(ray);
+		List<Point3D> intersections = scene.geometries.findIntersections(ray);//find intersection point
 		if (intersections == null) // if there are no intersection points return color of background
 			return scene.background;
 		Point3D closestPoint = ray.findClosestPoint(intersections);// find closest point between ray

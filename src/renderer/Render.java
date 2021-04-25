@@ -23,7 +23,7 @@ private RayTracerBase rayTracer;// ray tracer
 
 /**
  * @param scene the scene to set
- * @return Render
+ * @return Render- this object
  */
 public Render setScene(Scene scene) {
 	this.scene = scene;
@@ -31,7 +31,7 @@ public Render setScene(Scene scene) {
 }
 /**
  * @param camera the camera to set
- * @return Render
+ * @return Render- this object
  */
 public Render setCamera(Camera camera) {
 	this.camera = camera;
@@ -39,7 +39,7 @@ public Render setCamera(Camera camera) {
 }
 /**
  * @param imageWriter the imageWriter to set
- * @return Render
+ * @return Render- this object
  */
 public Render setImageWriter(ImageWriter imageWriter) {
 	this.imageWriter = imageWriter;
@@ -47,7 +47,7 @@ public Render setImageWriter(ImageWriter imageWriter) {
 }
 /**
  * @param rayTracer the rayTracer to set
- * @return Render
+ * @return Render- this object
  */
 public Render setRayTracer(RayTracerBase rayTracer) {
 	this.rayTracer = rayTracer;
@@ -81,8 +81,8 @@ public void renderImage()
 	}
 /**
  * print a grid above the image
- * @param interval where the line should be
- * @param color the color of lines
+ * @param interval- where the line should be
+ * @param color - the color of lines
  */
 public void printGrid( int interval, Color color)
 {

@@ -25,7 +25,7 @@ private Color intensity;
 	 intensity= IA.scale(KA);
 }
 /**
- * @return the intensity
+ * @return the intensity (color)
  */
 public Color getIntensity() {
 	return intensity;

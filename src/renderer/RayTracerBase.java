@@ -21,7 +21,7 @@ public abstract class RayTracerBase
 	 */
 	public abstract Color traceRay(Ray ray);
 	
-	/**constructor that get scene o
+	/**constructor that gets scene 
 	 * @param scene
 	 */
 	public RayTracerBase(Scene scene) {

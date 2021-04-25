@@ -26,29 +26,32 @@ public class IntegrationTests {
 
 	/**
 	 * the function calculates how many intersections view plan has with Intersectable
-	 * @param Nx 
-	 * @param Ny 
-	 * @param cam
-	 * @param geo
+	 * @param Nx-number of rows
+	 * @param Ny -number of columns
+	 * @param cam- the camera
+	 * @param geo- geometries
 	 * @return amount of intersections with geo
 	 */
 	private int countIntersections(int Nx, int Ny, Camera cam, Intersectable geo) {
 		List<Point3D> intersections; //list of intersections points of geo
 		int count = 0; //counter of intersection points
-		for (int i = 0; i < Nx; ++i) { //width
-			for (int j = 0; j < Ny; ++j) { //height
+		for (int i = 0; i < Nx; ++i) { //move on width
+			for (int j = 0; j < Ny; ++j) { //move on height
 				Ray ray = cam.constructRayThroughPixel(3, 3, j, i);  //calculate ray
 				intersections = geo.findIntersections(ray); //calculate intersections for ray
 				if (intersections != null) //if there are intersections
 					count += intersections.size(); //sum the amount of intersections
 			}
 		}
-		return count;
+		return count;//amount of intersection
 	}
 	
 	Camera cam1 = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 	Camera cam2 = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0));
-	
+	/**
+	 * Test method for
+	 * {@link geometries.Intersectable.Sphere #findIntersections(ray)}.
+	 */
 	//Test cases for Sphere
 	@Test
 	public void cameraSphereIntersections() {
@@ -80,7 +83,10 @@ public class IntegrationTests {
 		cam2.setDistance(1).setViewPlaneSize(3, 3); //set view plane and distance
 		assertEquals("Wrong number of points", 0, countIntersections(Nx,Ny,cam2,sph));
 	}
-	
+	/**
+	 * Test method for
+	 * {@link geometries.Intersectable.Plane #findIntersections(ray)}.
+	 */
 	//Test cases for Plane
 	@Test
 	public void cameraPlaneIntersections() {
@@ -102,7 +108,10 @@ public class IntegrationTests {
 	    cam2.setDistance(1).setViewPlaneSize(3, 3); //set view plane and distance
 	    assertEquals("Wrong number of points", 6, countIntersections(Nx,Ny,cam2,pln));
 	}
-
+	/**
+	 * Test method for
+	 * {@link geometries.Intersectable.Triangle #findIntersections(ray)}.
+	 */
 	//Test cases for Triangle
 	@Test
 	public void cameraTriangleIntersections() {

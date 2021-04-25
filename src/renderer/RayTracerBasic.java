@@ -34,9 +34,10 @@ public class RayTracerBasic extends RayTracerBase
 	public Color traceRay(Ray ray)
 	{
 		List<Point3D> intersections = scene.geometries.findIntersections(ray);
-		if (intersections == null) return scene.background;
-		Point3D closestPoint = ray.findClosestPoint(intersections);
-		return calcColor(closestPoint);
+		if (intersections == null) // if there are no intersection points return color of background
+			return scene.background;
+		Point3D closestPoint = ray.findClosestPoint(intersections);// find closest point between ray
+		return calcColor(closestPoint); // return the color of closestPoint
 	}
 
 	/**constructor that get scene and call to superClass constructor

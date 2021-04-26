@@ -14,7 +14,7 @@ import primitives.Vector;
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886 //
  *
  */
-public class Tube implements Geometry 
+public class Tube extends Geometry 
 {
     Ray axisRay;
     double radius;

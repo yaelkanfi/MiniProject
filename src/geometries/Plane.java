@@ -13,7 +13,7 @@ import primitives.Vector;
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886
  *
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 	
 	Point3D q0;
 	Vector normal;

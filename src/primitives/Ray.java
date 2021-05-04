@@ -6,6 +6,7 @@ package primitives;
 import java.util.List;
 import java.util.Objects;
 import static primitives.Util.*;
+import geometries.Intersectable.GeoPoint;
 /**
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886
  *
@@ -88,6 +89,30 @@ public Point3D findClosestPoint(List<Point3D> pointList)
 		{
 			min=p0.distance(pointList.get(i));
 			closestPoint=pointList.get(i);		    
+		}
+	}
+	return closestPoint;
+}
+
+/**
+ * the function returns the closest GeoPoint from list by using distance of the point
+ * @param lst - list of GeoPoints
+ * @return GeoPoint - the closest GeoPoint in the list
+ */
+public GeoPoint findClosestGeoPoint(List<GeoPoint> lst)
+{
+	if (lst == null)//if the list is empty
+		return null;
+
+	GeoPoint closestPoint=lst.get(0);	//begin with the first point
+	double min = p0.distance(lst.get(0).point);	// find the distance between the point
+
+	for(int i=0; i<lst.size(); i++) 	//run on the list
+	{
+		if (p0.distance(lst.get(i).point)<min) //if there is a closer point update
+		{
+			min=p0.distance(lst.get(i).point);
+			closestPoint=lst.get(i);// of type GeoPoint		    
 		}
 	}
 	return closestPoint;

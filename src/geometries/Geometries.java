@@ -5,10 +5,13 @@ package geometries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.Point3D;
 import primitives.Ray;
+//import static geometries.Intersectable.GeoPoint;
+
 
 /**
  * @author Chagit Shaviv 322805482 and Yael Kanfi 212450886 
@@ -19,7 +22,7 @@ public class Geometries implements Intersectable {
 	/**
 	 * A container for Geometries (Intersectables)
 	 **/
-	private List<Intersectable> geometries = new ArrayList<>();
+	private List<Intersectable> geometries = new LinkedList<>();
 	
 	/* ********* Constructors *********** */
 	/**
@@ -36,7 +39,7 @@ public class Geometries implements Intersectable {
 	 * @param none
 	 */
 	public Geometries() {
-		this.geometries = new ArrayList<>();
+		this.geometries = new LinkedList<>();
 	}
 
 	public void add(Intersectable... geometries) {
@@ -58,5 +61,25 @@ public class Geometries implements Intersectable {
         }
         return intersections; //return the list of intersections
 	}
-
+    /**
+     * @param Ray ray - the ray that intersect the geometries
+     * @return List<GeoPoint> - list of intersections geoPoints
+     */
+	@Override
+	public List<GeoPoint> findGeoIntersections(Ray ray)
+	{
+		// TODO Auto-generated method stub
+		List<GeoPoint> intersections = null; //list of GeoIntersection
+		for (Intersectable geometry : geometries)
+		{
+	    var geoIntersections = geometry.findGeoIntersections(ray);
+		if(geoIntersections != null) //if the list is not empty
+		  {
+			if (intersections == null) //if no intersections were inserted yet
+                intersections = new ArrayList<>(); //create a new ArrayList
+			intersections.addAll(geoIntersections); //insert all intersections
+		  }
+		}
+		return intersections;// list of intersection geo point
+	}
 }

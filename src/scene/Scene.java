@@ -15,7 +15,7 @@ public class Scene
 {
 public String name; //name of scene
 public Color background = Color.BLACK; //background color, the default color is black
-public AmbientLight ambientLight=new AmbientLight (Color.BLACK, 0);  //the default color is black with zero scalar
+public AmbientLight ambientLight=new AmbientLight (Color.BLACK, 1);  //the default color is black with zero scalar
 public Geometries geometries; //the geometries collection in the scene
 /**
  * constructor that get name and build empty collection of geometries

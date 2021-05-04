@@ -89,10 +89,24 @@ public class Polygon extends Geometry {
 		return plane.getNormal();
 	}
 
-	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	/*@Override
+	/**
+	 * @param Ray ray - the ray that intersect the plane
+	 * @return List<Point3D> - the list of intersection Point3D
+	 */
+	/*public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
      return null;
+	}*/
+
+	@Override
+	/**
+	 * @param Ray ray - the ray that intersect the plane
+	 * @return List<GeoPoint> - the list of intersection GeoPoints
+	 */
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

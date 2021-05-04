@@ -88,7 +88,7 @@ public class Camera {
 		this.height = height;
 		this.distance = distance;
 		*/
-		this.vRight =(vTo.crossProduct(vUp)).normalize(); //the normal vector
+		this.vRight =vTo.crossProduct(vUp).normalize(); //the normal vector
 	}
 	/**
 	 * this function initializes view plane 
@@ -142,7 +142,7 @@ public class Camera {
 		double Rx = this.width/nX;//width of each pixel
 		
 		//Pixel[i,j] center
-		double yi = -(i - (nY - 1) / 2d) * Ry;
+		double yi = (i - (nY - 1) / 2d) * Ry;
 		double xj = (j - (nX - 1) / 2d) * Rx;
 		
 		Point3D Pij = pc;
@@ -153,7 +153,7 @@ public class Camera {
 		}
 		if (!isZero(yi))// if is not zero,add 
 		{
-			Pij = Pij.add(vUp.scale(yi));
+			Pij = Pij.add(vUp.scale(-yi));
 		}
 		
 		Vector Vij = Pij.subtract(this.p0); //vij=pij-p0

@@ -61,8 +61,13 @@ public class Plane extends Geometry {
 	public String toString() {
 		return "point: "+q0.toString() +" normal vector: "+normal.toString();
 	}
-	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	
+	/*@Override
+	/**
+	 * @param Ray ray - the ray that intersect the plane
+	 * @return List<Point3D> - the list of intersection Point3D
+	 */
+	/*public List<Point3D> findIntersections(Ray ray) {
 		// TODO Auto-generated method stub
 		 //get ray point and vector
         Point3D rayPoint = ray.getP0();
@@ -83,6 +88,45 @@ public class Plane extends Geometry {
           //check if the ray crosses the plane
             else if(t > 0) 
             	return List.of(ray.getPoint(t));
+         //no intersection between the ray and the plane
+            else 
+                return null;
+
+        } catch(Exception ex){
+            // p.subtract(rayP) is vector zero, which means the ray point is equal to the plane point (ray start on plane)
+        	return null;
+        }
+	}*/
+	
+	@Override
+	/**
+	 * @param Ray ray - the ray that intersect the plane
+	 * @return List<GeoPoint> - the list of intersection GeoPoints
+	 */
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+		
+		 //get ray point and vector
+        Point3D rayPoint = ray.getP0();
+        Vector rayVector = ray.getDir();
+
+        // check if the ray is parallel to the plane
+        if (isZero(normal.dotProduct(rayVector))) // dotProduct = 0 => parallel
+            return null;
+        
+        //check if the ray and the plane start at the same point
+        if(ray.getP0().equals(q0))
+        	return null;
+        try {
+
+            double t = alignZero((normal.dotProduct(q0.subtract(rayPoint))) / (normal.dotProduct(rayVector)));
+            
+         // check if the ray starts on the plane
+            if(isZero(t))
+               return null;
+          //check if the ray crosses the plane
+            else if(t > 0) 
+            	return List.of(new GeoPoint(this, ray.getPoint(t))); //return list of GeoPint (convert from Point3D to GeoPoint)
          //no intersection between the ray and the plane
             else 
                 return null;

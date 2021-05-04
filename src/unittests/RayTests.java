@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 import java.util.List;
 import org.junit.Test;
 
+import geometries.Geometry;
+import geometries.Intersectable.GeoPoint;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector ;
@@ -36,10 +38,32 @@ public class RayTests {
 	assertEquals("wrong closest point", new Point3D(2,0,0), ray.findClosestPoint(lst1));
 	//TC13:the closest point is in the last index of the list
 	lst1 = List.of(new Point3D(8,0,0),new Point3D(4,0,0),new Point3D(5,0,0) , new Point3D(3,0,0),new Point3D(2,0,0));
-	assertEquals("wrong closest point", new Point3D(2,0,0), ray.findClosestPoint(lst1));
+	assertEquals("wrong closest point", new Point3D(2,0,0), ray.findClosestPoint(lst1));	
+	}
 	
+	/**
+	 * Test method for {@link primitives.Point3D#findClosestGeoPoint()}.
+	 */
+	@Test
+	public void findClosestGeoPointTest() 
+	{
+	Ray ray=new Ray(Point3D.ZERO, new Vector(1,0,0));
+	Geometry geo = null;
 	
+	// ============ Equivalence Partitions Tests ==============
+	//TC01: the closest point is in the middle of the list
+	List<GeoPoint> lst1 = List.of(new GeoPoint(geo,new Point3D(5,0,0)),new GeoPoint(geo, new Point3D(4,0,0)),new GeoPoint(geo,new Point3D(2,0,0)) , new GeoPoint(geo, new Point3D(3,0,0)),new GeoPoint(geo, new Point3D(7,0,0)));
+	assertEquals("wrong closest point", new GeoPoint(geo,new Point3D(2,0,0)), ray.findClosestGeoPoint(lst1));
 	
+		// =============== Boundary Values Tests ==================
+	//TC11:Empty list of points
+	assertEquals("no closest point", null, ray.findClosestGeoPoint(null));
+	//TC12:the closest point is in the first index of the list
+	lst1 = List.of(new GeoPoint(geo,new Point3D(2,0,0)), new GeoPoint(geo,new Point3D(4,0,0)), new GeoPoint(geo,new Point3D(5,0,0)) , new GeoPoint(geo,new Point3D(3,0,0)), new GeoPoint(geo,new Point3D(7,0,0)));
+	assertEquals("wrong closest point", new GeoPoint(geo, new Point3D(2,0,0)), ray.findClosestGeoPoint(lst1));
+	//TC13:the closest point is in the last index of the list
+	lst1 = List.of(new GeoPoint(geo,new Point3D(8,0,0)), new GeoPoint(geo,new Point3D(4,0,0)) ,new GeoPoint(geo,new Point3D(5,0,0)) , new GeoPoint(geo,new Point3D(3,0,0)), new GeoPoint(geo,new Point3D(2,0,0)));
+	assertEquals("wrong closest point", new GeoPoint(geo,new Point3D(2,0,0)), ray.findClosestGeoPoint(lst1));	
 	}
 
 }

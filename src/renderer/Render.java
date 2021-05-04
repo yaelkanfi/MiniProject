@@ -74,7 +74,7 @@ public void renderImage()
      {
          for (int row = 0; row < Nx; row++) //move on all row
          {
-        	 Ray ray = camera.constructRayThroughPixel(Nx, Ny, col, row); //construct a ray through the pixel
+        	 Ray ray = camera.constructRayThroughPixel(Nx, Ny, row, col); //construct a ray through the pixel
         	 imageWriter.writePixel(row, col, rayTracer.traceRay(ray)); //drawing color strips in regular intervals 
          }
      }

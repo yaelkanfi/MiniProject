@@ -76,14 +76,14 @@ public class RenderTests {
 		Scene scene = new Scene("Test scene")//
 				.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2)); //
 
-		scene.geometries.add(new Sphere( new Point3D(0, 0, -100), 50), //
+		scene.geometries.add(new Sphere( new Point3D(0, 0, -100),50), //
 				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)) // up left
-						.setEmission(new Color(java.awt.Color.GREEN)),
+						.setEmmission(new Color(java.awt.Color.GREEN)),
 				new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up right
 				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)) // down left
-						.setEmission(new Color(java.awt.Color.RED)),
+						.setEmmission(new Color(java.awt.Color.RED)),
 				new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100)) // down right
-						.setEmission(new Color(java.awt.Color.BLUE)));
+						.setEmmission(new Color(java.awt.Color.BLUE)));
 
 		ImageWriter imageWriter = new ImageWriter("color render test", 1000, 1000);
 		Render render = new Render() //

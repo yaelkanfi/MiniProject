@@ -21,9 +21,9 @@ public interface LightSource {
 	public Color getIntensity(Point3D p);
 	
 	/**
-	 * the function returns the vector from point
+	 * the function returns the vector of the lighting direction from point
 	 * @param p - Point3D
-	 * @return vector - directional vector 
+	 * @return vector - lighting directional vector 
 	 */
 	public Vector getL(Point3D p);
 

@@ -19,8 +19,19 @@ public class AmbientLight extends Light{
  */
  public  AmbientLight(Color IA, double KA)
 {
+	
 	 super(IA.scale(KA));
 }
+ /**
+  * default constructor the intensity using the super class constructor and send black color.
+  */
+ public  AmbientLight()
+ {
+ 	
+ 	 super(Color.BLACK);
+ }
+
+	
 
 
 

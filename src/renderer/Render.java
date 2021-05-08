@@ -15,7 +15,7 @@ import scene.Scene;
  *This class creates from the scene the color matrix of the image
  */
 public class Render {
-private Scene scene; //the scene of the image
+//private Scene scene; //the scene of the image
 private Camera camera; //the camera
 private  ImageWriter imageWriter;// the image that we create
 private RayTracerBase rayTracer;// ray tracer
@@ -25,10 +25,11 @@ private RayTracerBase rayTracer;// ray tracer
  * @param scene the scene to set
  * @return Render- this object
  */
-public Render setScene(Scene scene) {
+/*public Render setScene(Scene scene) {
 	this.scene = scene;
 	return this;
 }
+*/
 /**
  * @param camera the camera to set
  * @return Render- this object
@@ -59,8 +60,9 @@ public Render setRayTracer(RayTracerBase rayTracer) {
  */
 public void renderImage()
 {
-	if(scene==null)// if there is no scene, throw exception
+	/*if(scene==null)// if there is no scene, throw exception
 		throw new MissingResourceException( "Error", ", ", "there is no scene" );
+	*/
 	if(camera==null)// if there is no camera, throw exception
 		throw new MissingResourceException( "Error", ", ", "there is no camera" );
 	if(imageWriter==null)// if there is no image, throw exception

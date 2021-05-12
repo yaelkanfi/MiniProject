@@ -177,9 +177,9 @@ public class LightsTests {
 				.setkL(0.001).setkQ(0.0005));
 
 		ImageWriter imageWriter = new ImageWriter("TrianglesAllLights", 500, 500);
-		Render render = new Render()//
-				.setImageWriter(imageWriter) //
-				.setCamera(camera2) //
+		Render render = new Render()
+				.setImageWriter(imageWriter) 
+				.setCamera(camera2) 
 				.setRayTracer(new RayTracerBasic(scene2));
 		render.renderImage();
 		render.writeToImage();

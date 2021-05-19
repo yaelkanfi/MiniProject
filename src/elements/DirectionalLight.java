@@ -36,6 +36,12 @@ public class DirectionalLight extends Light implements LightSource {
 		// TODO Auto-generated method stub
 		return direction;//return the direction vector of the light
 	}
+
+	@Override
+	public double getDistance(Point3D point) {
+		// TODO Auto-generated method stub
+		return Double.POSITIVE_INFINITY;
+	}
 	
 	
 

@@ -15,6 +15,7 @@ public class Ray
 {
 Point3D p0;
 Vector dir;
+private static final double DELTA = 0.1; //Size of first moving rays
 /** constructor who gets clean finds a direction vector and returns Ray
  * @param p0 starting point
  * @param dir direction vector
@@ -25,6 +26,22 @@ public Ray(Point3D p0, Vector dir)
 	this.p0 = p0;
 	this.dir = dir.normalized();
 }
+/**
+ * 
+ * @param pointGeo point
+ * @param dir- directional vector 
+ * @param n- vector normal
+ * p0=point + normal.scale(±DELTA)
+ */
+public Ray(Point3D pointGeo, Vector direction, Vector n)
+{
+	dir=direction.normalized();
+	double vN = n.dotProduct(direction); //dot product to the directional vector
+	Vector delta = n.scale(vN >= 0 ? DELTA : -DELTA); //check sign
+	p0= pointGeo.add(delta);//moving the point according delta
+	
+}
+
 /** the function return starting point
  * @return the p0- point
  */

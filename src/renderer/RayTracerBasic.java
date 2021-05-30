@@ -6,6 +6,7 @@ package renderer;
 import java.util.List;
 
 import elements.LightSource;
+import elements.PointLight;
 import geometries.Intersectable.GeoPoint;
 import primitives.Color;
 import primitives.Material;
@@ -309,17 +310,39 @@ public class RayTracerBasic extends RayTracerBase
 			Vector lightDirection = l.scale(-1); // from point to light source
 			Ray lightRay = new Ray(geopoint.point, lightDirection, n);
 			double lightDistance = light.getDistance(geopoint.point);
-			var intersections = scene.geometries.findGeoIntersections(lightRay);
-			if (intersections == null) return 1.0;
-			double ktr = 1.0;
-			for (GeoPoint gp : intersections) {
-			if (alignZero(gp.point.distance(geopoint.point) -lightDistance) <= 0) {
-			ktr *= gp.geometry.getMaterial().kT;
-			if (ktr < MIN_CALC_COLOR_K) return 0.0;
+			double transperancy = 1.0;
+			
+			if(light instanceof PointLight) {
+				double lightRadius = ((PointLight)light).getRadius();
+				List<Ray> splitRays = lightRay.splitRay(scene.ShadowRays, lightDistance, lightRadius);
+				double transparencySum = 0;
+				for (Ray ray : splitRays) {
+					transparencySum += rayTransparency(ray, lightDistance);
+				}
+				if (splitRays.size() > 0) {
+					transperancy = transparencySum / splitRays.size();
+				}
+			} else {
+				if (scene.ShadowRays > 0) {
+					transperancy = rayTransparency(lightRay, lightDistance);
+				}
 			}
+			return transperancy;
+		}
+		
+		private double rayTransparency(Ray ray, double lightDistance) {
+			var intersections = scene.geometries.findGeoIntersections(ray);
+			if (intersections == null) return 1.0;
+				double ktr = 1.0;
+			for (GeoPoint gp : intersections) {
+				if (alignZero(gp.point.distance(ray.getP0()) -lightDistance) <= 0) {
+					ktr *= gp.geometry.getMaterial().kT;
+					if (ktr < MIN_CALC_COLOR_K) return 0.0;
+				}
 			}
 			return ktr;
-			}
+		}
+		
 		
 
 }

@@ -167,6 +167,15 @@ public class Vector {
 		return head;
 	}
 	
+	public Vector getNormal() {
+		Vector normal;
+		if (head.getX() == 0 && head.getY() == 0) {
+			return new Vector(1, 0, 0);
+		} else {
+			return new Vector(-head.getY(), head.getX(), 0).normalize();
+		}
+	}
+	
     
     
 }

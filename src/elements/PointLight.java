@@ -14,6 +14,10 @@ import primitives.Vector;
 public class PointLight extends Light implements LightSource {
 	
 	private Point3D position;
+	
+	private double radius = 0;
+
+
 	private double kC=1; //factor for attenuation with distance
 	private double kL=0; //factor for attenuation with distance
 	private double kQ=0; //factor for attenuation with distance
@@ -35,6 +39,28 @@ public class PointLight extends Light implements LightSource {
 		this.kQ = kQ;
 	}
 	
+
+	/**
+	 * @return the radius
+	 */
+	public double getRadius() {
+		return radius;
+	}
+
+	/**
+	 * @param radius the radius to set
+	 */
+	public PointLight setRadius(double radius) {
+		this.radius = radius;
+		return this;
+	}
+	
+	/**
+	 * @return the position
+	 */
+	public Point3D getPosition() {
+		return position;
+	}
 	
 	/**
 	 * @param kC the kC to set

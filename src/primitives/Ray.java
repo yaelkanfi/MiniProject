@@ -3,6 +3,7 @@
  */
 package primitives;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import static primitives.Util.*;
@@ -133,5 +134,33 @@ public GeoPoint findClosestGeoPoint(List<GeoPoint> lst)
 		}
 	}
 	return closestPoint;
+}
+
+
+public List<Ray> splitRay(int number, double distance, double radius) {
+	if (number < 1) {
+		return new ArrayList<Ray>();
+	}
+	
+	List<Ray> retRays = new ArrayList<Ray>();
+	retRays.add(this);
+	
+	Vector normal = this.dir.getNormal();
+	Vector normal2 = this.dir.crossProduct(normal).normalize();
+	for (int i = 0; i < number - 1; i++) {
+		double up = random(-radius, radius);
+		double maxRight = Math.sqrt(radius*radius - up*up);
+		double right = random(-maxRight, maxRight);
+		Point3D destination = this.getPoint(distance);
+		if (up != 0) {
+			destination = destination.add(normal.scale(up));
+		}
+		if (right != 0) {
+			destination = destination.add(normal2.scale(right));
+		}
+		Vector dir = destination.subtract(p0);
+		retRays.add(new Ray(p0, dir));
+	}
+	return retRays;
 }
 }

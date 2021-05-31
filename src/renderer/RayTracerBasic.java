@@ -297,9 +297,8 @@ public class RayTracerBasic extends RayTracerBase
 		}
 		
 		/**
-		 * 
 		 * function that creates Partial shading in case the body or bodies that block the light source from the point have transparency at some level or another
-		 * @param light 
+		 * @param light - light source
 		 * @param l -the vector from the light to the point 
 		 * @param n- normal vector to the point at the geometry
 		 * @param geopoint- the point in the geometry
@@ -310,26 +309,35 @@ public class RayTracerBasic extends RayTracerBase
 			Vector lightDirection = l.scale(-1); // from point to light source
 			Ray lightRay = new Ray(geopoint.point, lightDirection, n);
 			double lightDistance = light.getDistance(geopoint.point);
-			double transperancy = 1.0;
+			double transperancy = 1.0; //default
 			
-			if(light instanceof PointLight) {
-				double lightRadius = ((PointLight)light).getRadius();
-				List<Ray> splitRays = lightRay.splitRay(scene.ShadowRays, lightDistance, lightRadius);
-				double transparencySum = 0;
+			if(light instanceof PointLight) 
+			{
+				double lightRadius = ((PointLight)light).getRadius(); //get radius of light circle
+				List<Ray> splitRays = lightRay.splitRay(scene.ShadowRays, lightDistance, lightRadius); //call to splitRay to create more rays if requested
+				double transparencySum = 0; 
 				for (Ray ray : splitRays) {
-					transparencySum += rayTransparency(ray, lightDistance);
+					transparencySum += rayTransparency(ray, lightDistance); //sum ktr of rays - factor of ray's transparency
 				}
-				if (splitRays.size() > 0) {
-					transperancy = transparencySum / splitRays.size();
+				if (splitRays.size() > 0) { // if there are more than 1 rays
+					transperancy = transparencySum / splitRays.size(); //calculate average of transparency
 				}
-			} else {
-				if (scene.ShadowRays > 0) {
+			}
+			else //not point light (no changes)
+			{
+				if (scene.ShadowRays > 0) { //if there is shadow
 					transperancy = rayTransparency(lightRay, lightDistance);
 				}
 			}
 			return transperancy;
 		}
 		
+		/**
+		 * This function calculates transparency coefficient for ray and distance
+		 * @param ray - the ray to calculate with
+		 * @param lightDistance - the distance from light 
+		 * @return ktr - transparency factor
+		 */
 		private double rayTransparency(Ray ray, double lightDistance) {
 			var intersections = scene.geometries.findGeoIntersections(ray);
 			if (intersections == null) return 1.0;

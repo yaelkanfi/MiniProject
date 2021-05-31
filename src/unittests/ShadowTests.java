@@ -175,28 +175,5 @@ public class ShadowTests {
 		render.writeToImage();
 	}
 	
-	/**
-	 * Produce a picture of a sphere and triangle with point light and shade
-	 */
-	@Test 
-	public void sphereTriangleInitial_softShadows1() {
-		scene.geometries.add( //
-				new Sphere( new Point3D(0, 0, -200), 60) //
-						.setEmmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)), //
-				new Triangle(new Point3D(-63, -33, 0), new Point3D(-33, -63, 0), new Point3D(-61, -61, -4)) //
-						.setEmmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)) //
-		);
-		scene.lights.add( //
-				new SpotLight(new Color(400, 240, 0), new Point3D(-100, -100, 200),1 ,(1E-5 ),(1.5E-7), new Vector(1, 1, -3)) //
-						.setkL(1E-5).setkQ(1.5E-7).setRadius(5));
-		scene.setShadowRays(50);
-		Render render = new Render(). //
-				setImageWriter(new ImageWriter("sphereTriangleInitial_softShadows1", 400, 400)) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImage();
-		render.writeToImage();
-	}
+
 }

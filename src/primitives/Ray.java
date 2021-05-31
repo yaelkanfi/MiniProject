@@ -136,22 +136,30 @@ public GeoPoint findClosestGeoPoint(List<GeoPoint> lst)
 	return closestPoint;
 }
 
-
+/**
+ * This function splits the original ray into several rays by calculating them
+ * @param number - number of rays to split
+ * @param distance - distance between ray and target point
+ * @param radius - radius of circle of light
+ * @return List<Ray> - list of rays
+ */
 public List<Ray> splitRay(int number, double distance, double radius) {
+	
 	if (number < 1) {
-		return new ArrayList<Ray>();
+		return new ArrayList<Ray>(); //empty list
 	}
 	
 	List<Ray> retRays = new ArrayList<Ray>();
-	retRays.add(this);
+	retRays.add(this); //add the original ray (this)
 	
-	Vector normal = this.dir.getNormal();
-	Vector normal2 = this.dir.crossProduct(normal).normalize();
-	for (int i = 0; i < number - 1; i++) {
+	Vector normal = this.dir.getNormal(); //calculate first normal
+	Vector normal2 = this.dir.crossProduct(normal).normalize(); //calculate another normal 
+	for (int i = 0; i < number - 1; i++) 
+	{
 		double up = random(-radius, radius);
-		double maxRight = Math.sqrt(radius*radius - up*up);
+		double maxRight = Math.sqrt(radius*radius - up*up); //by Pitagoras sentence
 		double right = random(-maxRight, maxRight);
-		Point3D destination = this.getPoint(distance);
+		Point3D destination = this.getPoint(distance); 
 		if (up != 0) {
 			destination = destination.add(normal.scale(up));
 		}
@@ -159,7 +167,7 @@ public List<Ray> splitRay(int number, double distance, double radius) {
 			destination = destination.add(normal2.scale(right));
 		}
 		Vector dir = destination.subtract(p0);
-		retRays.add(new Ray(p0, dir));
+		retRays.add(new Ray(p0, dir)); //add to the list
 	}
 	return retRays;
 }

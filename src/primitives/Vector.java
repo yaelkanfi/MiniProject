@@ -167,12 +167,15 @@ public class Vector {
 		return head;
 	}
 	
+	/**
+	 * this function finds a normal to this vector and returns it
+	 * @return Vector - a normal vector to this vector
+	 */
 	public Vector getNormal() {
-		Vector normal;
 		if (head.getX() == 0 && head.getY() == 0) {
-			return new Vector(1, 0, 0);
+			return new Vector(1, 0, 0); //if the vector is (0,0,z) -> (1,0,0) is always a normal
 		} else {
-			return new Vector(-head.getY(), head.getX(), 0).normalize();
+			return new Vector(-head.getY(), head.getX(), 0).normalize(); //otherwise the normal is (-y,x,0)
 		}
 	}
 	

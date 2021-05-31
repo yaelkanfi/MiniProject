@@ -22,7 +22,7 @@ public Color background = Color.BLACK; //background color, the default color is 
 public AmbientLight ambientLight=new AmbientLight (Color.BLACK, 1);  //the default color is black with zero scalar
 public Geometries geometries; //the geometries collection in the scene
 public List<LightSource> lights=new LinkedList<LightSource>();//list of light source
-public int ShadowRays = 1;
+public int ShadowRays = 1; //the number of rays, default is 1
 /**
  * constructor that get name and build empty collection of geometries
  * @param name the name of scene
@@ -36,6 +36,7 @@ public Scene(String name)
 
 /**
  * @param shadowRays the shadowRays to set
+ * @return scene- this object
  */
 public Scene setShadowRays(int shadowRays) {
 	ShadowRays = shadowRays;

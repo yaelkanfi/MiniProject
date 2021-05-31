@@ -15,7 +15,7 @@ public class PointLight extends Light implements LightSource {
 	
 	private Point3D position;
 	
-	private double radius = 0;
+	private double radius = 0; // radius of circle of light
 
 
 	private double kC=1; //factor for attenuation with distance
@@ -40,7 +40,7 @@ public class PointLight extends Light implements LightSource {
 	}
 	
 
-	/**
+	/** 
 	 * @return the radius
 	 */
 	public double getRadius() {
@@ -49,18 +49,17 @@ public class PointLight extends Light implements LightSource {
 
 	/**
 	 * @param radius the radius to set
+	 * * @return PointLight
 	 */
 	public PointLight setRadius(double radius) {
 		this.radius = radius;
 		return this;
 	}
 	
-	/**
-	 * @return the position
-	 */
-	public Point3D getPosition() {
+	
+	/*public Point3D getPosition() {
 		return position;
-	}
+	}*/
 	
 	/**
 	 * @param kC the kC to set

@@ -30,6 +30,7 @@ public class Plane extends Geometry {
 		Vector v2 = q3.subtract(q1);
 		this.normal = (v1.crossProduct(v2)).normalize();
 		this.q0 = q1;
+		setBox();
 	}
 	/**constructor that gets a vector and a point and returns a plane
 	 * @param q0 Point3D
@@ -39,7 +40,14 @@ public class Plane extends Geometry {
 		super();
 		this.q0 = q0;
 		this.normal = normal;
+		setBox();
 	}
+	
+	private void setBox() {
+		this.leftUpperBackcorner = new Point3D(-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);
+		this.rightLowerFrontCorner = new Point3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+	}
+	
 	@Override
 	public Vector get_Normal(Point3D p) {
 		// TODO Auto-generated method stub

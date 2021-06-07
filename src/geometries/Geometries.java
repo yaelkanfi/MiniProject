@@ -23,6 +23,8 @@ public class Geometries implements Intersectable {
 	 * A container for Geometries (Intersectables)
 	 **/
 	private List<Intersectable> geometries = new LinkedList<>();
+	protected Point3D leftUpperBackcorner = null;
+	protected Point3D rightLowerFrontCorner = null;
 	
 	/* ********* Constructors *********** */
 	/**
@@ -30,9 +32,23 @@ public class Geometries implements Intersectable {
 	 * return a list of geometries
 	 **/
 	public Geometries(Intersectable... geometries) {
+		setBox(geometries);
 		this.geometries.addAll(Arrays.asList(geometries)); //add to the end of list
 	}
 	
+	/**
+	 * @return the leftUpperBackcorner
+	 */
+	public Point3D getLeftUpperBackcorner() {
+		return leftUpperBackcorner;
+	}
+
+	/**
+	 * @return the rightLowerFrontCorner
+	 */
+	public Point3D getRightLowerFrontCorner() {
+		return rightLowerFrontCorner;
+	}
 	
 	/**
 	 * a default constructor
@@ -40,10 +56,59 @@ public class Geometries implements Intersectable {
 	 */
 	public Geometries() {
 		this.geometries = new LinkedList<>();
+		this.leftUpperBackcorner = null;
+		this.rightLowerFrontCorner = null;
 	}
 
 	public void add(Intersectable... geometries) {
+		setBox(geometries);
 		this.geometries.addAll(Arrays.asList(geometries)); //add the new geometries to list
+	}
+	
+	private void setBox(Intersectable[] geometries) {
+		if (geometries.length <= 0) {
+			return;
+		}
+		if(leftUpperBackcorner == null) {
+			this.leftUpperBackcorner = new Point3D(-Double.MAX_VALUE, -Double.MAX_VALUE, -Double.MAX_VALUE);			
+		}
+		if (rightLowerFrontCorner == null) {
+			this.rightLowerFrontCorner = new Point3D(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+		}
+		double mostLeftCoordinate = this.getLeftUpperBackcorner().getX();
+		double mostRightCoordinate =  this.getRightLowerFrontCorner().getX();
+		double mostUpCoordinate = this.getLeftUpperBackcorner().getY();
+		double mostDownCoordinate = this.getRightLowerFrontCorner().getY();
+		double mostBackCoordinate = this.getLeftUpperBackcorner().getZ();
+		double mostFrontCoordinate = this.getRightLowerFrontCorner().getZ();
+		for (var geometry : geometries) {
+			if (geometry.getLeftUpperBackcorner().getX() < mostLeftCoordinate) {
+				mostLeftCoordinate = geometry.getLeftUpperBackcorner().getX();
+			}
+			if (geometry.getLeftUpperBackcorner().getY() > mostUpCoordinate) {
+				mostUpCoordinate = geometry.getLeftUpperBackcorner().getY();
+			}
+			if (geometry.getLeftUpperBackcorner().getZ() < mostBackCoordinate) {
+				mostBackCoordinate = geometry.getLeftUpperBackcorner().getZ();
+			}
+			if (geometry.getRightLowerFrontCorner().getX() > mostRightCoordinate) {
+				mostRightCoordinate = geometry.getRightLowerFrontCorner().getX();
+			}
+			if (geometry.getRightLowerFrontCorner().getY() < mostDownCoordinate) {
+				mostDownCoordinate = geometry.getRightLowerFrontCorner().getY();
+			}
+			if (geometry.getRightLowerFrontCorner().getZ() > mostFrontCoordinate) {
+				mostFrontCoordinate = geometry.getRightLowerFrontCorner().getZ();
+			}
+		}
+		if (mostLeftCoordinate < leftUpperBackcorner.getX() || mostUpCoordinate > leftUpperBackcorner.getY() ||
+				mostBackCoordinate < leftUpperBackcorner.getZ()) {
+			this.leftUpperBackcorner = new Point3D(mostLeftCoordinate, mostUpCoordinate, mostBackCoordinate);
+		}
+		if (mostRightCoordinate > rightLowerFrontCorner.getX() || mostDownCoordinate < rightLowerFrontCorner.getY() ||
+				mostFrontCoordinate > rightLowerFrontCorner.getZ()) {
+			this.rightLowerFrontCorner = new Point3D(mostRightCoordinate, mostDownCoordinate, mostFrontCoordinate);	
+		}
 	}
 
 	@Override
@@ -68,18 +133,96 @@ public class Geometries implements Intersectable {
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray)
 	{
-		// TODO Auto-generated method stub
+		if (!rayPassesInBox(ray)) {
+			return null;
+		}
 		List<GeoPoint> intersections = null; //list of GeoIntersection
-		for (Intersectable geometry : geometries)
-		{
-	    var geoIntersections = geometry.findGeoIntersections(ray);
-		if(geoIntersections != null) //if the list is not empty
-		  {
-			if (intersections == null) //if no intersections were inserted yet
-                intersections = new ArrayList<>(); //create a new ArrayList
-			intersections.addAll(geoIntersections); //insert all intersections
-		  }
+		for (Intersectable geometry : geometries) {
+			if (geometry instanceof Geometry && !((Geometry)geometry).rayPassesInBox(ray)) {
+				continue;
+			}
+			if (geometry instanceof Geometries && !((Geometries)geometry).rayPassesInBox(ray)) {
+				continue;
+			}
+		    var geoIntersections = geometry.findGeoIntersections(ray);
+			if(geoIntersections != null) //if the list is not empty
+			  {
+				if (intersections == null) //if no intersections were inserted yet
+	                intersections = new ArrayList<>(); //create a new ArrayList
+				intersections.addAll(geoIntersections); //insert all intersections
+			  }
 		}
 		return intersections;// list of intersection geo point
+	}
+	
+	public boolean rayPassesInBox(Ray ray) {
+		if (ray.getP0().getX() > getRightLowerFrontCorner().getX() && ray.getDir().getHead().getX() >= 0) {
+			return false;
+		}
+		if (ray.getP0().getX() < getLeftUpperBackcorner().getX() && ray.getDir().getHead().getX() <= 0) {
+			return false;
+		}
+		if (ray.getP0().getY() > getLeftUpperBackcorner().getY() && ray.getDir().getHead().getY() >= 0) {
+			return false;
+		}
+		if (ray.getP0().getY() < getRightLowerFrontCorner().getY() && ray.getDir().getHead().getY() <= 0) {
+			return false;
+		}
+		if (ray.getP0().getZ() > getRightLowerFrontCorner().getZ() && ray.getDir().getHead().getZ() >= 0) {
+			return false;
+		}
+		if (ray.getP0().getZ() < getLeftUpperBackcorner().getZ() && ray.getDir().getHead().getZ() <= 0) {
+			return false;
+		}
+		// left wall
+		if (ray.getDir().getHead().getX() != 0) {
+			double length = (getLeftUpperBackcorner().getX() - ray.getP0().getX()) / ray.getDir().getHead().getX();
+			Point3D p = ray.getPoint(length);
+			if (p.getY() > this.rightLowerFrontCorner.getY() && p.getY() < this.leftUpperBackcorner.getY() &&
+					p.getZ() > this.leftUpperBackcorner.getZ() && p.getZ() < this.rightLowerFrontCorner.getZ()) {
+				return true;
+			}
+		} // right wall
+		if (ray.getDir().getHead().getX() != 0) {
+			double length = (getRightLowerFrontCorner().getX() - ray.getP0().getX()) / ray.getDir().getHead().getX();
+			Point3D p = ray.getPoint(length);
+			if (p.getY() > this.rightLowerFrontCorner.getY() && p.getY() < this.leftUpperBackcorner.getY() &&
+					p.getZ() > this.leftUpperBackcorner.getZ() && p.getZ() < this.rightLowerFrontCorner.getZ()) {
+				return true;
+			}
+		} // lower wall
+		if (ray.getDir().getHead().getY() != 0) {
+			double length = (getRightLowerFrontCorner().getY() - ray.getP0().getY()) / ray.getDir().getHead().getY();
+			Point3D p = ray.getPoint(length);
+			if (p.getX() > this.leftUpperBackcorner.getX() && p.getX() < this.rightLowerFrontCorner.getX() &&
+					p.getZ() > this.leftUpperBackcorner.getZ() && p.getZ() < this.rightLowerFrontCorner.getZ()) {
+				return true;
+			}
+		} // upper wall
+		if (ray.getDir().getHead().getY() != 0) {
+			double length = (getLeftUpperBackcorner().getY() - ray.getP0().getY()) / ray.getDir().getHead().getY();
+			Point3D p = ray.getPoint(length);
+			if (p.getX() > this.leftUpperBackcorner.getX() && p.getX() < this.rightLowerFrontCorner.getX() &&
+					p.getZ() > this.leftUpperBackcorner.getZ() && p.getZ() < this.rightLowerFrontCorner.getZ()) {
+				return true;
+			}
+		} // back wall
+		if (ray.getDir().getHead().getZ() != 0) {
+			double length = (getLeftUpperBackcorner().getZ() - ray.getP0().getZ()) / ray.getDir().getHead().getZ();
+			Point3D p = ray.getPoint(length);
+			if (p.getY() > this.rightLowerFrontCorner.getY() && p.getY() < this.leftUpperBackcorner.getY() &&
+					p.getX() > this.leftUpperBackcorner.getX() && p.getX() < this.rightLowerFrontCorner.getX()) {
+				return true;
+			}
+		}
+		if (ray.getDir().getHead().getZ() != 0) {
+			double length = (getRightLowerFrontCorner().getZ() - ray.getP0().getZ()) / ray.getDir().getHead().getZ();
+			Point3D p = ray.getPoint(length);
+			if (p.getY() > this.rightLowerFrontCorner.getY() && p.getY() < this.leftUpperBackcorner.getY() &&
+					p.getX() > this.leftUpperBackcorner.getX() && p.getX() < this.rightLowerFrontCorner.getX()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

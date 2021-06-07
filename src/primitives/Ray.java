@@ -84,8 +84,11 @@ public String toString() {
  */
 public Point3D getPoint(double t)
 {
-	 Point3D p1 = p0.add(dir.scale(t));
-	return isZero(t) ? p0 : new Point3D(p1.x, p1.y, p1.z);
+	if (isZero(t)) {
+		return p0;
+	}
+	Point3D p1 = p0.add(dir.scale(t));
+	return new Point3D(p1.x, p1.y, p1.z);
 }
 /**
  * In the points list - find the point with minimal distance from the

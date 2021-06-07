@@ -65,7 +65,8 @@ public class MiniProject1 {
 		Render render = new Render() 
 				.setImageWriter(new ImageWriter("noSoftShadowTry", 600, 600)) 
 				.setCamera(camera) 
-				.setRayTracer(new RayTracerBasic(scene));
+				.setRayTracer(new RayTracerBasic(scene))
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 	}
@@ -113,7 +114,8 @@ public class MiniProject1 {
 		Render render = new Render() 
 				.setImageWriter(new ImageWriter("SoftShadowTry", 600, 600)) 
 				.setCamera(camera) 
-				.setRayTracer(new RayTracerBasic(scene));
+				.setRayTracer(new RayTracerBasic(scene))
+				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
 	}

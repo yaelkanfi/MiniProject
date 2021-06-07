@@ -47,6 +47,7 @@ public class Polygon extends Geometry {
 		if (vertices.length < 3)
 			throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
 		this.vertices = List.of(vertices);
+		setBox();
 		// Generate the plane according to the first three vertices and associate the
 		// polygon with this plane.
 		// The plane holds the invariant normal (orthogonal unit) vector to the polygon
@@ -81,6 +82,37 @@ public class Polygon extends Geometry {
 			if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
+	}
+	
+	private void setBox() {
+		double mostLeftCoordinate = Double.MAX_VALUE;
+		double mostRightCoordinate = -Double.MAX_VALUE;
+		double mostUpCoordinate = -Double.MAX_VALUE;
+		double mostDownCoordinate = Double.MAX_VALUE;
+		double mostBackCoordinate = Double.MAX_VALUE;
+		double mostFrontCoordinate = -Double.MAX_VALUE;
+		for (var v : vertices) {
+			if (v.getX() < mostLeftCoordinate) {
+				mostLeftCoordinate = v.getX();
+			}
+			if (v.getX() > mostRightCoordinate) {
+				mostRightCoordinate = v.getX();
+			}
+			if (v.getY() < mostDownCoordinate) {
+				mostDownCoordinate = v.getY();
+			}
+			if (v.getY() > mostUpCoordinate) {
+				mostUpCoordinate = v.getY();
+			}
+			if (v.getZ() < mostBackCoordinate) {
+				mostBackCoordinate = v.getZ();
+			}
+			if (v.getZ() > mostFrontCoordinate) {
+				mostFrontCoordinate = v.getZ();
+			}
+		}
+		this.leftUpperBackcorner = new Point3D(mostLeftCoordinate, mostUpCoordinate, mostBackCoordinate);
+		this.rightLowerFrontCorner = new Point3D(mostRightCoordinate, mostDownCoordinate, mostFrontCoordinate);				
 	}
 
 	@Override

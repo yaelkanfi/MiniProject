@@ -72,5 +72,7 @@ default List<Point3D> findIntersections(Ray ray) {
  * @return List<GeoPoint> - list of intersections point of type GeoPoint
  */
 List<GeoPoint> findGeoIntersections(Ray ray);
+Point3D getLeftUpperBackcorner();
+Point3D getRightLowerFrontCorner();
 
 }

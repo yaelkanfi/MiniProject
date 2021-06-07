@@ -113,11 +113,12 @@ public class Sphere extends Geometry
 		double th=Math.sqrt(radius*radius-d*d);//according pitagoras
 		double t1=tm+th;
 		double t2=tm-th;
-		if(t1>0&&t2>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v)) && !isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if orthogonal -> no intersection 
+		
+		if(t1>0&&t2>0 && !isZero(ray.getPoint(t1).subtract(center).dotProduct(v)) && !isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if orthogonal -> no intersection 
 			return List.of(new GeoPoint(this,ray.getPoint(t1)) , new GeoPoint(this, ray.getPoint(t2))); //convert from list of Point3D to GeoPoint
-		else if(t1>0&&!isZero(ray.getPoint(t1).subtract(center).dotProduct(v))) //if only t1 is not orthogonal and positive
+		else if(t1>0 && !isZero(ray.getPoint(t1).subtract(center).dotProduct(v))) //if only t1 is not orthogonal and positive
 			return List.of(new GeoPoint(this,ray.getPoint(t1))); //convert from list of Point3D to GeoPoint
-		else if(t2>0&&!isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if only t2 is not orthogonal and positive
+		else if(t2>0 && !isZero(ray.getPoint(t2).subtract(center).dotProduct(v))) //if only t2 is not orthogonal and positive
 			return List.of(new GeoPoint(this,ray.getPoint(t2))); //convert from list of Point3D to GeoPoint
 		else
 			return null;

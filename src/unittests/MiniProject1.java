@@ -97,18 +97,18 @@ public class MiniProject1 {
 				
 		scene.lights.add( 
 				new SpotLight(new Color(1020, 400, 400), new Point3D(40, 200, 200), 1, 0.00001,  0.000005,  new Vector(-1, -1, -4).normalize()) 
-						.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+						.setkL(0.00001).setkQ( 0.000005).setRadius(3));
 		scene.lights.add(
 		new SpotLight(new Color(1020, 400, 400), new Point3D(40, 200, 200), 1, 0.00001,  0.000005,  new Vector(-4, -1, -1).normalize()) 
-		.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+		.setkL(0.00001).setkQ( 0.000005).setRadius(3));
 		
 		scene.lights.add( 
 				new SpotLight(new Color(1020, 400, 400), new Point3D(-40, 200, 200), 1, 0.00001, 0.000005,  new Vector(-1, -1, -4).normalize()) 
-						.setkL(0.00001).setkQ(0.000005).setRadius(5));
+						.setkL(0.00001).setkQ(0.000005).setRadius(3));
 		
 		scene.lights.add( 
 				new SpotLight(new Color(1020, 400, 400), new Point3D(-40, 200, 200), 1, 0.00001, 0.000005,  new Vector(-4, -1, -1).normalize()) 
-						.setkL(0.00001).setkQ(0.000005).setRadius(5));
+						.setkL(0.00001).setkQ(0.000005).setRadius(3));
 
 		scene.setShadowRays(70);
 		Render render = new Render() 

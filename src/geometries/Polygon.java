@@ -84,33 +84,38 @@ public class Polygon extends Geometry {
 		}
 	}
 	
+	/**
+	 * this function initialize the box
+	 */
 	private void setBox() {
+		//initialize the edges for comparing
 		double mostLeftCoordinate = Double.MAX_VALUE;
 		double mostRightCoordinate = -Double.MAX_VALUE;
 		double mostUpCoordinate = -Double.MAX_VALUE;
 		double mostDownCoordinate = Double.MAX_VALUE;
 		double mostBackCoordinate = Double.MAX_VALUE;
 		double mostFrontCoordinate = -Double.MAX_VALUE;
-		for (var v : vertices) {
-			if (v.getX() < mostLeftCoordinate) {
-				mostLeftCoordinate = v.getX();
+		for (var v : vertices) { //run over vertices
+			if (v.getX() < mostLeftCoordinate) { //find the mostLeftCoordinate 
+				mostLeftCoordinate = v.getX(); //update
 			}
-			if (v.getX() > mostRightCoordinate) {
-				mostRightCoordinate = v.getX();
+			if (v.getX() > mostRightCoordinate) { //find the mostRightCoordinate
+				mostRightCoordinate = v.getX(); //update
 			}
-			if (v.getY() < mostDownCoordinate) {
-				mostDownCoordinate = v.getY();
+			if (v.getY() < mostDownCoordinate) { //find the mostDownCoordinate
+				mostDownCoordinate = v.getY(); //update
 			}
-			if (v.getY() > mostUpCoordinate) {
-				mostUpCoordinate = v.getY();
+			if (v.getY() > mostUpCoordinate) { //find the mostUpCoordinate
+				mostUpCoordinate = v.getY(); //update
 			}
-			if (v.getZ() < mostBackCoordinate) {
-				mostBackCoordinate = v.getZ();
+			if (v.getZ() < mostBackCoordinate) { //find the mostBackCoordinate
+				mostBackCoordinate = v.getZ(); //update
 			}
-			if (v.getZ() > mostFrontCoordinate) {
-				mostFrontCoordinate = v.getZ();
+			if (v.getZ() > mostFrontCoordinate) { //find the mostFrontCoordinate
+				mostFrontCoordinate = v.getZ(); //update
 			}
 		}
+		//initialize the corners with the values we found
 		this.leftUpperBackcorner = new Point3D(mostLeftCoordinate, mostUpCoordinate, mostBackCoordinate);
 		this.rightLowerFrontCorner = new Point3D(mostRightCoordinate, mostDownCoordinate, mostFrontCoordinate);				
 	}

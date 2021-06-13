@@ -35,10 +35,13 @@ public class Sphere extends Geometry
 		this.radius = radius;
 		setBox();
 	}
-	
+	 
+	/**
+	 * this function initialize the box
+	 */
 	private void setBox() {
-		this.leftUpperBackcorner = new Point3D(center.getX() - radius, center.getY() + radius, center.getZ() - radius);
-		this.rightLowerFrontCorner = new Point3D(center.getX() + radius, center.getY() - radius, center.getZ() + radius);
+		this.leftUpperBackcorner = new Point3D(center.getX() - radius, center.getY() + radius, center.getZ() - radius); //(X-r, Y+r, Z-r)
+		this.rightLowerFrontCorner = new Point3D(center.getX() + radius, center.getY() - radius, center.getZ() + radius);//(X+r, Y-r, Z+r)
 	}
 	
 	/**the function return the center point of the circle 

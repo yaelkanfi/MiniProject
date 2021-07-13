@@ -74,7 +74,7 @@ public class Geometries implements Intersectable {
 	 */
 	private void setBox(Intersectable[] geometries) {
 		if (geometries.length <= 0) { 
-			return; //no need of a new box because no new geometries
+			return; //no need of a new box because no geometries
 		}
 		if(leftUpperBackcorner == null) { //if there is no box yet, initialize with maximum values
 			this.leftUpperBackcorner = new Point3D(Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE);			
@@ -317,6 +317,12 @@ public class Geometries implements Intersectable {
 				//the indexes of the geometries in the list have changed (minus 1) and now we want to go over the geometry in index i
 			}			
 		}
+		
+	}
+
+	@Override
+	public void setBox() {
+		// TODO Auto-generated method stub
 		
 	}
 }

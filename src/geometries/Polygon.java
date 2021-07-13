@@ -87,7 +87,8 @@ public class Polygon extends Geometry {
 	/**
 	 * this function initialize the box
 	 */
-	private void setBox() {
+	@Override
+	public void setBox() {
 		//initialize the edges for comparing
 		double mostLeftCoordinate = Double.MAX_VALUE;
 		double mostRightCoordinate = -Double.MAX_VALUE;

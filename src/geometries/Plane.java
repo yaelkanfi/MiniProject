@@ -46,7 +46,8 @@ public class Plane extends Geometry {
 	/**
 	 * this function initialize the box
 	 */
-	private void setBox() {
+	@Override
+	public void setBox() {
 		this.leftUpperBackcorner = new Point3D(-Double.MAX_VALUE, Double.MAX_VALUE, -Double.MAX_VALUE); //initialize with minimum values
 		this.rightLowerFrontCorner = new Point3D(Double.MAX_VALUE, -Double.MAX_VALUE, Double.MAX_VALUE); //initialize with maximum values
 	}

@@ -84,5 +84,10 @@ Point3D getLeftUpperBackCorner();
  * @return Point3D - right lower front corner of box
  */
 Point3D getRightLowerFrontCorner();
-
+/**
+ * this function initialize the box
+ */
+ void setBox();
+ 
+ 
 }

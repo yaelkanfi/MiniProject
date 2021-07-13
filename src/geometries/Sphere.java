@@ -39,7 +39,8 @@ public class Sphere extends Geometry
 	/**
 	 * this function initialize the box
 	 */
-	private void setBox() {
+	@Override
+	public void setBox() {
 		this.leftUpperBackcorner = new Point3D(center.getX() - radius, center.getY() + radius, center.getZ() - radius); //(X-r, Y+r, Z-r)
 		this.rightLowerFrontCorner = new Point3D(center.getX() + radius, center.getY() - radius, center.getZ() + radius);//(X+r, Y-r, Z+r)
 	}

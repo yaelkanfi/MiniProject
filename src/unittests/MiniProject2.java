@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import elements.AmbientLight;
 import elements.Camera;
+import elements.DirectionalLight;
 import elements.PointLight;
 import elements.SpotLight;
 import geometries.Geometries;
@@ -34,7 +35,7 @@ import scene.Scene;
 public class MiniProject2 {
 
 	private Scene scene = new Scene("Test scene");
-	private Camera camera = new Camera(new Point3D(0, 0, 3000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+	private Camera camera = new Camera(new Point3D(0, 0, 2000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setViewPlaneSize(200, 200).setDistance(1000);
 	
 	
@@ -82,19 +83,20 @@ public class MiniProject2 {
 		render.writeToImage();
 	}
 	
-	@Test
+	//@Test //running time:    1067.196s = 18 minutes  (with improvement)   
 	public void test2() {
 		
 		scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLACK), 0));
 		
-		//blue ball
-		for (double x = -50; x <= 50; x+=5) { 
-			for (double z = -Math.sqrt(2500 - x*x); z <= Math.sqrt(2500 - x*x); z += 5) {
-				double y = Math.sqrt(2500 - x*x - z*z);	
-				if(Double.isNaN(y)) {
+		//middle blue sphere- a sphere made up of hundreds of small spheres
+		//a loop that create the spheres with x,y,z sequential values  (using pitagoras)
+		for (double x = -50; x <= 50; x+=5) {   //x between (-50 , 50)
+			for (double z = -Math.sqrt(2500 - x*x); z <= Math.sqrt(2500 - x*x); z += 5) {//z between (-Math.sqrt(2500 - x*x), Math.sqrt(2500 - x*x))
+				double y = Math.sqrt(2500 - x*x - z*z);	 //y value
+				if(Double.isNaN(y)) {//check if y value is nan(close to zero) and update them to 0
 					y = 0;
 				}
-				scene.geometries.add(new Sphere(new Point3D(x-15, y, z), 3)
+				scene.geometries.add(new Sphere(new Point3D(x-15, y, z), 3)   //add the small spheres
 						.setEmmission(new Color((int)Math.abs(x+y+z)% 256, (int)Math.abs(x+y+z+80) %256, (int)Math.abs(x+y+z+160)%256))
 						.setMaterial(new Material().setkD(0.3).setkS(1).setnShininess(99)));
 				scene.geometries.add(new Sphere(new Point3D(x-15, -y, z), 3)
@@ -103,37 +105,31 @@ public class MiniProject2 {
 			}
 		}
 		
-		//right ball
-//		for (double x = -50; x <= 50; x+=5) {
-//			for (double z = -Math.sqrt(2500 - x*x); z <= Math.sqrt(2500 - x*x); z += 5) {
-//				double y = Math.sqrt(2500 - x*x - z*z);	
-//				if(Double.isNaN(y)) {
-//					y = 0;
-//				}
-//				scene.geometries.add(new Sphere(new Point3D(x+105, y, z), 3)
-//						.setEmmission(new Color((int)Math.abs(x+y+z)% 256, (int)Math.abs(x+y+z+80) %256, (int)Math.abs(x+y+z+160)%256))
-//						.setMaterial(new Material().setkD(0.3).setkS(1).setnShininess(99)));
-//				scene.geometries.add(new Sphere(new Point3D(x+105, -y, z), 3)
-//						.setEmmission(new Color((int)Math.abs(x+y+z)% 256, (int)Math.abs(x+y+z+80) %256, (int)Math.abs(x+y+z+160)%256))
-//						.setMaterial(new Material().setkD(0.3).setkS(1).setnShininess(99)));
-//			}
-//		}
-		
 
 		
 		scene.geometries.add(
 				//mirrors
-				new Sphere(new Point3D(0, -1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)),
-				new Sphere(new Point3D(0, 1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)),
-				new Sphere(new Point3D(-1000, 0, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)),
-	            //balls
-				new Sphere( new Point3D(80, 0 ,120) ,40).setEmmission(new Color(0,0,0))
+				new Sphere(new Point3D(0, -1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)), //lower mirror
+				new Sphere(new Point3D(0, 1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)), //upper mirror
+			      //spheres
+				//right spheres
+				new Sphere( new Point3D(80, 0 ,120) ,40).setEmmission(new Color(0,0,0)) // outer right spheres
 			    .setMaterial(new Material().setkD(0.05).setkS(1).setnShininess(15).setkT(0).setkR(1)), 
-			    new Sphere(new Point3D(60, 0, 0) , 10).setEmmission(new Color(75,0,25))
-			    .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(15).setkT(0).setkR(1)) 
+			    new Sphere(new Point3D(60, 0, 0) , 10).setEmmission(new Color(75,0,25))// inner right spheres
+			    .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(15).setkT(0).setkR(1)) ,
+			    //left spheres
+			    new Sphere( new Point3D(-110, 0 ,120) ,40).setEmmission(new Color(0,0,0)) // outer left spheres
+			    .setMaterial(new Material().setkD(0.05).setkS(1).setnShininess(15).setkT(0).setkR(1)), 
+			    new Sphere(new Point3D(-90, 0, 0) , 10).setEmmission(new Color(75,0,25)) // inner left spheres
+			    .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(15).setkT(0).setkR(1)),
+			    //middle small triangle
+			    new Triangle(new Point3D(-30, 0, 0),new Point3D(-15, 10, 0),new Point3D(0, 0, 0)).setEmmission(new Color(200, 200, 510)).setMaterial(new Material().setkD(0.1).setkS(1).setnShininess(99).setkT(0.5).setkR(0))//0.1,1,0.5,0.0,99)));
+
+			   
+			    
 			    
 		);
-		
+		//box automation
 		scene.geometries.sortInnerGeometries();
 				
 		scene.lights.add(	
@@ -146,7 +142,12 @@ public class MiniProject2 {
 		scene.lights.add(
 				new SpotLight(new Color(200,00,000), new Point3D(30, 0, -60), 1, 0.00005, 0.00003, new Vector(1, 0, 2))
 				);
+		scene.lights.add(new DirectionalLight(new Color(10, 100, 10), new Vector(new Point3D(0,0,-0.5) )));
 		
+		scene.lights.add(	
+				new PointLight(new Color(132, 45, 97), new Point3D(-80, -50, 200), 1, 0.00001,  0.000005) 
+						.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+		//soft shadow improvement
 		scene.setShadowRays(70);
 		Render render = new Render() 
 				.setImageWriter(new ImageWriter("BoundingBoxAutomated", 600, 600)) 
@@ -163,72 +164,82 @@ public class MiniProject2 {
 	
 	
 	
+	@Test //running time: 8680.965s  =144 minutes=2 hours and 25 minutes   (without improvement)
+	public void test1() {
+	
+	scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLACK), 0));
+	
+	//middle blue sphere- a sphere made up of hundreds of small spheres
+	//a loop that create the spheres with x,y,z sequential values  (using pitagoras)
+	for (double x = -50; x <= 50; x+=5) {   //x between (-50 , 50)
+		for (double z = -Math.sqrt(2500 - x*x); z <= Math.sqrt(2500 - x*x); z += 5) {//z between (-Math.sqrt(2500 - x*x), Math.sqrt(2500 - x*x))
+			double y = Math.sqrt(2500 - x*x - z*z);	 //y value
+			if(Double.isNaN(y)) {//check if y value is nan(close to zero) and update them to 0
+				y = 0;
+			}
+			scene.geometries.add(new Sphere(new Point3D(x-15, y, z), 3)   //add the small spheres
+					.setEmmission(new Color((int)Math.abs(x+y+z)% 256, (int)Math.abs(x+y+z+80) %256, (int)Math.abs(x+y+z+160)%256))
+					.setMaterial(new Material().setkD(0.3).setkS(1).setnShininess(99)));
+			scene.geometries.add(new Sphere(new Point3D(x-15, -y, z), 3)
+					.setEmmission(new Color((int)Math.abs(x+y+z)% 256, (int)Math.abs(x+y+z+80) %256, (int)Math.abs(x+y+z+160)%256))
+					.setMaterial(new Material().setkD(0.3).setkS(1).setnShininess(99)));
+		}
+	}
+	
+
+	
+	scene.geometries.add(
+			//mirrors
+			new Sphere(new Point3D(0, -1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)), //lower mirror
+			new Sphere(new Point3D(0, 1000, 0), 940).setEmmission(new Color(20, 20, 20)).setMaterial(new Material().setkR(1).setkS(1).setnShininess(99)), //upper mirror
+		      //spheres
+			//right spheres
+			new Sphere( new Point3D(80, 0 ,120) ,40).setEmmission(new Color(0,0,0)) // outer right spheres
+		    .setMaterial(new Material().setkD(0.05).setkS(1).setnShininess(15).setkT(0).setkR(1)), 
+		    new Sphere(new Point3D(60, 0, 0) , 10).setEmmission(new Color(75,0,25))// inner right spheres
+		    .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(15).setkT(0).setkR(1)) ,
+		    //left spheres
+		    new Sphere( new Point3D(-110, 0 ,120) ,40).setEmmission(new Color(0,0,0)) // outer left spheres
+		    .setMaterial(new Material().setkD(0.05).setkS(1).setnShininess(15).setkT(0).setkR(1)), 
+		    new Sphere(new Point3D(-90, 0, 0) , 10).setEmmission(new Color(75,0,25)) // inner left spheres
+		    .setMaterial(new Material().setkD(0.2).setkS(1).setnShininess(15).setkT(0).setkR(1)),
+		    //middle small triangle
+		    new Triangle(new Point3D(-30, 0, 0),new Point3D(-15, 10, 0),new Point3D(0, 0, 0)).setEmmission(new Color(200, 200, 510)).setMaterial(new Material().setkD(0.1).setkS(1).setnShininess(99).setkT(0.5).setkR(0))//0.1,1,0.5,0.0,99)));
+
+		   
+		    
+		    
+	);
+	//box automation
+	//scene.geometries.sortInnerGeometries();
+			
+	scene.lights.add(	
+			new PointLight(new Color(200, 200, 510), new Point3D(-40, -50, 200), 1, 0.00001,  0.000005) 
+					.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+	scene.lights.add(
+			new PointLight(new Color(510, 200, 200), new Point3D(40, 50, 200), 1, 0.00001,  0.000005) 
+			.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+	
+	scene.lights.add(
+			new SpotLight(new Color(200,00,000), new Point3D(30, 0, -60), 1, 0.00005, 0.00003, new Vector(1, 0, 2))
+			);
+	scene.lights.add(new DirectionalLight(new Color(10, 100, 10), new Vector(new Point3D(0,0,-0.5) )));
+	
+	scene.lights.add(	
+			new PointLight(new Color(132, 45, 97), new Point3D(-80, -50, 200), 1, 0.00001,  0.000005) 
+					.setkL(0.00001).setkQ( 0.000005).setRadius(5));
+	//soft shadow improvement
+	scene.setShadowRays(70);
+	Render render = new Render() 
+			.setImageWriter(new ImageWriter("BoundingBox2", 600, 600)) 
+			.setCamera(camera)
+			.setRayTracer(new RayTracerBasic(scene))
+			.setMultithreading(3);
+	render.renderImage();
+	render.writeToImage();
+}	
 	
 	
 	
-	
-	
-	
-	
-//	@Test
-//	  /**
-//	   * Testing creation of lighted images
-//	   */
-//	  public void bigimageTest() {    
-//	    Renderer renderer = new Renderer();
-//	    renderer.setImageName("The great image");
-//	    renderer.getScene.setCamera(new Camera(new Point3D(-5000,0,0), new Vector(1,0,0), new Vector(0,1,0); //NOTE: in this test, vTo is NOT the usual 0,0,-1. It is 1,0,0!!
-//	    renderer.getScene().setCameraDistance(5300);
-//	    renderer.getScene().addLight(new PointLight(new Color(200,200,200), new Point3D(new Coordinate(-30), new Coordinate(50), new Coordinate(60)), 1, 0.00005, 0.00003));
-//	    renderer.getScene().addLight(new PointLight(new Color(00,00,200), new Point3D(new Coordinate(80), new Coordinate(80), new Coordinate(120)), 1, 0.00005, 0.00003));
-//	    renderer.getScene().addLight(new SpotLight(new Color(200,00,000), new Point3D(new Coordinate(30), new Coordinate(00), new Coordinate(-60)), 1, 0.00005, 0.00003, new Vector(new Point3D(new Coordinate(1), new Coordinate(0), new Coordinate(2)))));
-//	    
-//	    renderer.getScene().addLight(new DirectionalLight(new Color(10, 100, 10), new Vector(new Point3D(new Coordinate(0), new Coordinate(0), new Coordinate(-0.5)))));
-//	    
-//	    Sphere s;
-//	    
-//
-//	    // Remove this loop and all it's contents if you wish the rendering to take less than 30 minutes!!
-//	    for (double x = -50; x<=50; x+=5)
-//	      for (double y = -(50-Math.abs(x)); y<=50-Math.abs(x); y+=5) {
-//	        double z = Math.sqrt(2500 - x*x - y*y);
-//	        s = new Sphere(5, new Point3D(new Coordinate(x + 60), new Coordinate(y), new Coordinate(z)),new Color((int)Math.abs(x+y+z)%25,(int)Math.abs(x+y+z+10)%25,(int)Math.abs(x+y+z+20)%25));
-//	        s.setMaterial(new Material(1,0.1,0,0.6,99));
-//	        renderer.getScene().addGeometry(s);
-//	        if (z != 0 ) {
-//	          s = new Sphere(5, new Point3D(new Coordinate(x + 60), new Coordinate(y), new Coordinate(-z)),new Color((int)Math.abs(x+y+z)%25,(int)Math.abs(x+y+z+10)%25,(int)Math.abs(x+y+z+20)%25));
-//	          s.setMaterial(new Material(1,0.1,0,0.6,99));
-//	          renderer.getScene().addGeometry(s);
-//	        }
-//	        
-//	      }
-//
-//
-//	    
-//	    s = new Sphere(70, new Point3D(new Coordinate(80), new Coordinate(0), new Coordinate(120)),new Color(0,0,0));
-//	    s.setMaterial(new Material(0.05,1,1,0,15));
-//	    renderer.getScene().addGeometry(s);
-//	    
-//	    s = new Sphere(30, new Point3D(new Coordinate(60), new Coordinate(0), new Coordinate(0)),new Color(75,0,25));
-//	    s.setMaterial(new Material(0.2,1,1,0,15));
-//	    renderer.getScene().addGeometry(s);
-//	    
-//	    s = new Sphere(800, new Point3D(new Coordinate(60), new Coordinate(-900), new Coordinate(0)),new Color(0,0,0));
-//	    s.setMaterial(new Material(0.1,1,1,0,15));
-//	    renderer.getScene().addGeometry(s);
-//	    
-//	    s = new Sphere(800, new Point3D(new Coordinate(60), new Coordinate(900), new Coordinate(0)),new Color(0,0,0));
-//	    s.setMaterial(new Material(0.1,1,1,0,15));
-//	    renderer.getScene().addGeometry(s);
-//	    
-//
-//	    renderer.getScene().addGeometry(new Plain(new Point3D(new Coordinate(250), new Coordinate(-200), new Coordinate(-150)),new Point3D(new Coordinate(250), new Coordinate(200), new Coordinate(-150)),new Point3D(new Coordinate(250), new Coordinate(-200), new Coordinate(200)),new Color(15,15,15), new Material(0.7,1,0.3,0,99)));
-//
-//	    renderer.getScene().addGeometry(new Triangle(new Point3D(new Coordinate(-5000), new Coordinate(-200), new Coordinate(-70)),new Point3D(new Coordinate(150), new Coordinate(200), new Coordinate(-70)),new Point3D(new Coordinate(150), new Coordinate(-200), new Coordinate(-70)),new Color(7,7,7), new Material(0.1,1,0.5,0.0,99)));
-//	    renderer.getScene().addGeometry(new Triangle(new Point3D(new Coordinate(-5000), new Coordinate(200), new Coordinate(-70)),new Point3D(new Coordinate(150), new Coordinate(200), new Coordinate(-70)),new Point3D(new Coordinate(-5000), new Coordinate(-200), new Coordinate(-70)),new Color(7,7,7), new Material(0.1,1,0.5,0.0,99)));
-//
-//	    renderer.getScene().setAmbientLight(new AmbientLight(new Color(0,0,0), 0));
-//	    renderer.renderImage();
-//	  }
-	
+
 	}

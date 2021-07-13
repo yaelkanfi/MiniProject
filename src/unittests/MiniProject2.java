@@ -38,7 +38,7 @@ public class MiniProject2 {
 	private Camera camera = new Camera(new Point3D(0, 0, 2000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setViewPlaneSize(200, 200).setDistance(1000);
 	
-	
+	/*
 	//@Test
 	public void test() {
 		scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
@@ -81,7 +81,7 @@ public class MiniProject2 {
 				.setMultithreading(3);
 		render.renderImage();
 		render.writeToImage();
-	}
+	}*/
 	
 	//@Test //running time:    1067.196s = 18 minutes  (with improvement)   
 	public void test2() {
